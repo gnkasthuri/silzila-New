@@ -56,6 +56,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import PhotoSizeSelectActualIcon from "@mui/icons-material/PhotoSizeSelectActual";
 import sqlIcon from "../../assets/sqlCodeIcon.png";
 import DoneIcon from "@mui/icons-material/Done";
+import SimpleCard from "../Charts/SimpleCard";
 
 const popoverButtonStyle = {
 	textTransform: "none",
@@ -348,6 +349,14 @@ const GraphArea = ({
 						graphTileSize={tileState.tiles[propKey].graphSizeFull}
 					/>
 				);
+			case "simplecard":
+				return (
+					<SimpleCard
+						propKey={propKey}
+						graphDimension={fullScreen ? graphDimension2 : graphDimension}
+						graphTileSize={tileState.tiles[propKey].graphSizeFull}
+					/>
+				);
 
 			default:
 				return <h2>Work in progress</h2>;
@@ -382,6 +391,7 @@ const GraphArea = ({
 
 				case "gauge":
 				case "funnel":
+				case "simplecard":
 					measures = measures.concat(chartAxes[1].fields);
 					break;
 
@@ -417,7 +427,8 @@ const GraphArea = ({
 
 			if (
 				chartProperties.properties[propKey].chartType === "gauge" ||
-				chartProperties.properties[propKey].chartType === "funnel"
+				chartProperties.properties[propKey].chartType === "funnel" ||
+				chartProperties.properties[propKey].chartType === "simplecard"
 			) {
 				title = measureTitle ? measureTitle : "";
 			} else if (chartProperties.properties[propKey].chartType === "richText") {

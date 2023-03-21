@@ -159,6 +159,7 @@ const DataConnection = (props: DataConnectionProps) => {
 				});
 			} else {
 				setOpenAlert(true);
+				setSeverity("success");
 				setTestMessage("Data Connection successful");
 				getInformation();
 				setTimeout(() => {
@@ -169,7 +170,7 @@ const DataConnection = (props: DataConnectionProps) => {
 				}, 3000);
 			}
 		} else {
-			// //console.log(response);
+			console.log(response);
 		}
 	};
 

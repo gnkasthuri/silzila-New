@@ -30,10 +30,7 @@ interface ControlDetailProps {
 }
 
 const ControlDetail = ({ chartProperties, tabTileProps }: ControlDetailProps) => {
-	var propKey: number = parseFloat(
-		`${tabTileProps.selectedTabId}.${tabTileProps.selectedTileId}`
-	);
-
+	var propKey: string = `${tabTileProps.selectedTabId}.${tabTileProps.selectedTileId}`;
 	var chartType: string = chartProperties.properties[propKey].chartType;
 
 	const RenderControlDetail = () => {

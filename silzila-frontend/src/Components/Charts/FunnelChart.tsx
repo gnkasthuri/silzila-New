@@ -104,6 +104,7 @@ const FunnelChart = ({
 										chartControl,
 										formattedValue
 									);
+									console.log(formattedValue);
 									return formattedValue;
 								},
 							},

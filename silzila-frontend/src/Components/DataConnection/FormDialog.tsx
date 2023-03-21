@@ -212,7 +212,7 @@ function FormDialog({
 		) {
 			var response: any = await getDatabaseConnectionTest();
 
-			if (response.status === 200 && response.data.message === "Connection OK!") {
+			if (response.status) {
 				if (regOrUpdate === "Update") {
 					handleonUpdate();
 				}

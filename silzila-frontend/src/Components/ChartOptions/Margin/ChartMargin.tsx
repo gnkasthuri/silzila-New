@@ -177,6 +177,7 @@ const ChartMargin = ({
 			case "boxPlot":
 			case "treeMap":
 			case "sankey":
+			case "simplecard":
 				return (
 					<React.Fragment>
 						<div className="optionDescription">MARGIN RESIZE:</div>

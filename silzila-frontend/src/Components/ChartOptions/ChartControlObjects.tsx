@@ -79,6 +79,7 @@ const ChartControlObjects = ({
 		// "Format",
 		"Style",
 	];
+	const simpleCardOptionList: string[] = ["Title", "Margin", "Colors", "Format"];
 
 	const RenderOptions: any = () => {
 		console.log(selectedChart);
@@ -244,6 +245,22 @@ const ChartControlObjects = ({
 				});
 			case "richText":
 				return richTextOptionList.map(option => {
+					return (
+						<div
+							key={option}
+							className={
+								chartProp.properties[propKey].chartOptionSelected === option
+									? "optionImageSelected"
+									: "optionImage"
+							}
+							onClick={() => changeChartOption(propKey, option)}
+						>
+							{option}
+						</div>
+					);
+				});
+			case "simplecard":
+				return simpleCardOptionList.map(option => {
 					return (
 						<div
 							key={option}

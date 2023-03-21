@@ -15,9 +15,9 @@ import InputPositiveNumber from "../CommonFunctions/InputPositiveNumber";
 import { ChartOptionsProps, ChartOptionsStateProps } from "../CommonInterfaceForChartOptions";
 
 interface ChartTitleProps {
-	setGenerateTitleToStore: (propKey: number | string, option: string) => void;
-	setTitleAlignment: (propKey: number | string, align: string) => void;
-	setTitleSize: (propKey: number | string, value: number) => void;
+	setGenerateTitleToStore: (propKey: string, option: string) => void;
+	setTitleAlignment: (propKey: string, align: string) => void;
+	setTitleSize: (propKey: string, value: number) => void;
 }
 const ChartTitle = ({
 	// state
@@ -29,10 +29,7 @@ const ChartTitle = ({
 	setTitleAlignment,
 	setTitleSize,
 }: ChartOptionsProps & ChartTitleProps) => {
-	var propKey: number = parseFloat(
-		`${tabTileProps.selectedTabId}.${tabTileProps.selectedTileId}`
-	);
-
+	var propKey: string = `${tabTileProps.selectedTabId}.${tabTileProps.selectedTileId}`;
 	var generateTitle: string = chartProperties.properties[propKey].titleOptions.generateTitle;
 	var titleAlignment: string = chartProperties.properties[propKey].titleOptions.titleAlign;
 
@@ -110,12 +107,11 @@ const mapStateToProps = (state: ChartOptionsStateProps, ownProps: any) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 	return {
-		setGenerateTitleToStore: (propKey: number | string, option: string) =>
+		setGenerateTitleToStore: (propKey: string, option: string) =>
 			dispatch(setGenerateTitle(propKey, option)),
-		setTitleAlignment: (propKey: number | string, align: string) =>
+		setTitleAlignment: (propKey: string, align: string) =>
 			dispatch(setTitleAlignment(propKey, align)),
-		setTitleSize: (propKey: number | string, value: number) =>
-			dispatch(setTitleSize(propKey, value)),
+		setTitleSize: (propKey: string, value: number) => dispatch(setTitleSize(propKey, value)),
 	};
 };
 

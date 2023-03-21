@@ -102,3 +102,9 @@
 .UserClickedCellRemainingChildren {
 	opacity: 0.2;
 }
+
+.simpleCardStyle{
+	
+	border: 2px solid grey;
+	
+}
