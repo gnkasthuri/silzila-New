@@ -37,10 +37,10 @@ const initialState = {
 	password: "",
 	passwordError: "",
 	httppath: "",
-	httppathError:"",
+	httppathError: "",
 };
 
-const DataConnection = (props: DataConnectionProps) => {
+const DataConnection = (props: DataConnectionProps & any) => {
 	const [dataConnectionList, setDataConnectionList] = useState<ConnectionItem[]>([]);
 	const [showForm, setShowForm] = useState<boolean>(false);
 	const [regOrUpdate, setRegOrUpdate] = useState<string>("Register");
@@ -55,7 +55,7 @@ const DataConnection = (props: DataConnectionProps) => {
 		props.resetAllStates();
 		getInformation();
 		// eslint-disable-next-line
-	}, []);
+	}, [props.dataSetState]);
 
 	// Get Info on DataConnection from server
 	const getInformation = async () => {
@@ -67,7 +67,6 @@ const DataConnection = (props: DataConnectionProps) => {
 		});
 
 		if (result.status) {
-			
 			setDataConnectionList(result.data);
 			props.setDataConnectionListToState(result.data);
 		} else {
@@ -132,7 +131,7 @@ const DataConnection = (props: DataConnectionProps) => {
 	//  ==============================================================
 
 	const handleRegister = async () => {
-		var data:any = {
+		var data: any = {
 			vendor: account.vendor,
 			server: account.server,
 			port: account.port,
@@ -140,9 +139,9 @@ const DataConnection = (props: DataConnectionProps) => {
 			password: account.password,
 			connectionName: account.connectionName,
 		};
-		if(account.vendor === "databricks"){
-           data.httppath = account.httppath;
-		}else{
+		if (account.vendor === "databricks") {
+			data.httppath = account.httppath;
+		} else {
 			data.username = account.username;
 		}
 		// TODO need to specify type
@@ -181,7 +180,7 @@ const DataConnection = (props: DataConnectionProps) => {
 	// Update Dc
 	// ==============================================================
 	const handleonUpdate = async () => {
-		var data:any = {
+		var data: any = {
 			vendor: account.vendor,
 			server: account.server,
 			port: account.port,
@@ -189,11 +188,11 @@ const DataConnection = (props: DataConnectionProps) => {
 			password: account.password,
 			connectionName: account.connectionName,
 		};
-		if(account.vendor === "databricks"){
+		if (account.vendor === "databricks") {
 			data.httppath = account.httppath;
-		 }else{
-			 data.username = account.username;
-		 }
+		} else {
+			data.username = account.username;
+		}
 		// TODO need to specify type
 		var response: any = await FetchData({
 			requestType: "withData",
@@ -267,7 +266,7 @@ const DataConnection = (props: DataConnectionProps) => {
 				</div>
 			</div>
 			<div className="listContainer">
-				{dataConnectionList &&
+				{dataConnectionList.length > 0 ? (
 					dataConnectionList.map((dc: ConnectionItem) => {
 						return (
 							<SelectListItem
@@ -306,7 +305,20 @@ const DataConnection = (props: DataConnectionProps) => {
 								)}
 							/>
 						);
-					})}
+					})
+				) : (
+					<div
+						style={{
+							height: "100%",
+							padding: "25% 2rem",
+							color: "#ccc",
+							fontStyle: "italic",
+							fontSize: "14px",
+						}}
+					>
+						*No db connections added yet, add db connection to create datasets*
+					</div>
+				)}
 			</div>
 			<FormDialog {...properties} />
 
@@ -324,9 +336,10 @@ const DataConnection = (props: DataConnectionProps) => {
 	);
 };
 
-const mapStateToProps = (state: isLoggedProps) => {
+const mapStateToProps = (state: isLoggedProps & any) => {
 	return {
 		token: state.isLogged.accessToken,
+		dataSetState: state.dataSetState,
 	};
 };
 

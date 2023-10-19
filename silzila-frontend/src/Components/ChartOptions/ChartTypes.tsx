@@ -3,7 +3,7 @@
 // 	- the differences in dropzones for each specific graphs along,
 // 	- moving table fields into appropriate dropzones for each specific chart type
 
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
 import "./ChartIconStyles.css";
@@ -1317,12 +1317,12 @@ const ChartTypes = ({
 						) {
 							//check whether axes of oldchart is empty or not to open richtext in the same tile
 							var noOfAxes = oldChartAxes.length;
-							oldChartAxes.map((axes: any) => {
+							oldChartAxes.forEach((axes: any) => {
 								if (axes.fields.length === 0) {
 									noOfAxes = noOfAxes - 1;
 								}
 							});
-							
+
 							if (
 								// oldChartAxes[0].fields.length === 0 &&
 								// oldChartAxes[1].fields.length === 0 &&

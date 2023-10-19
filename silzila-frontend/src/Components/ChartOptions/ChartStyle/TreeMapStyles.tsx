@@ -27,6 +27,7 @@ const TreeMapStyles = ({
 
 	useEffect(() => {
 		if (chartData) {
+			// eslint-disable-next-line react-hooks/exhaustive-deps
 			treeMapLeafDepthOptions = chartProperties.properties[propKey].chartAxes[1].fields.map(
 				(el, i) => {
 					return { name: el.fieldname, value: i + 1 };

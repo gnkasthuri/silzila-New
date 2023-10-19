@@ -120,7 +120,7 @@ const FlatFileList = (props: any) => {
 				</div>
 			</div>
 			<div className="listContainer">
-				{fileList &&
+				{fileList.length > 1 ? (
 					fileList.map((fi: any) => {
 						return (
 							<SelectListItem
@@ -173,7 +173,20 @@ const FlatFileList = (props: any) => {
 								)}
 							/>
 						);
-					})}
+					})
+				) : (
+					<div
+						style={{
+							height: "100%",
+							padding: "25% 2rem",
+							color: "#ccc",
+							fontStyle: "italic",
+							fontSize: "14px",
+						}}
+					>
+						*No Flatfiles added yet, add Flatfiles to create Datasets*
+					</div>
+				)}
 			</div>
 			<Dialog open={confirmDialog}>
 				<div

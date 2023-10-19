@@ -346,6 +346,7 @@ const chartControl = {
 			tableRule: [],
 
 			tableConditionalFormats: [],
+			simplecardConditionalFormats: [],
 		},
 	},
 
@@ -675,6 +676,7 @@ const chartControlsReducer = (state: any = chartControl, action: any) => {
 						tableRule: [],
 
 						tableConditionalFormats: [],
+						simplecardConditionalFormats: [],
 					},
 				},
 				propList: {
@@ -1005,6 +1007,7 @@ const chartControlsReducer = (state: any = chartControl, action: any) => {
 						tableRule: [],
 
 						tableConditionalFormats: [],
+						simplecardConditionalFormats: [],
 					},
 				},
 				propList: { ...state.propList, [action.payload.tabId]: [tileKey2] },
@@ -1567,6 +1570,16 @@ const chartControlsReducer = (state: any = chartControl, action: any) => {
 				properties: {
 					[action.payload.propKey]: {
 						tableConditionalFormats: {
+							$set: action.payload.item,
+						},
+					},
+				},
+			});
+		case "ADD_OR_EDIT_SIMPLECARD_CF": //CF referse to conditional format
+			return update(state, {
+				properties: {
+					[action.payload.propKey]: {
+						simplecardConditionalFormats: {
 							$set: action.payload.item,
 						},
 					},

@@ -1,16 +1,7 @@
 // Creating new connections &  editing existing connections are handled in this component
 
 import React, { useState } from "react";
-import {
-	Dialog,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Popover,
-	Select,
-	SelectChangeEvent,
-	Typography,
-} from "@mui/material";
+import { Dialog, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import "./DataSetup.css";
 import { Button } from "@mui/material";
 // import FetchData from "../../ServerCall/FetchData";
@@ -23,7 +14,6 @@ import databricksIcon from "../../assets/databricksIcon.png";
 import mssqlIcon from "../../assets/mssqlicon.png";
 import mysqlicon from "../../assets/mysqlicon.svg";
 import postgresicon from "../../assets/postgresicon.png";
-import axios from "axios";
 import Logger from "../../Logger";
 
 function FormDialog({
@@ -49,58 +39,54 @@ function FormDialog({
 	//state
 	token,
 }: FormProps) {
-	const [dcDel, setDcDel] = useState<boolean>(false);
-	const [dcDelMeg, setDcDelMeg] = useState<string>("");
 	const [btnEnable, setBtnEnable] = useState<boolean>(false);
 	const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
 	const btnEnabelDisable = () => {
-		if (account.vendor !== "" &&
+		if (
+			account.vendor !== "" &&
 			account.server !== "" &&
 			account.port !== "" &&
 			account.database !== "" &&
-		    account.connectionName !== "" &&
-			account.password !== "") {
-			if (account.vendor === 'databricks') {
+			account.connectionName !== "" &&
+			account.password !== ""
+		) {
+			if (account.vendor === "databricks") {
 				if (account.httppath !== "") {
-						setBtnEnable(false);	
+					setBtnEnable(false);
 				} else {
 					setBtnEnable(true);
 				}
-			}
-			else {
+			} else {
 				if (account.username !== "") {
-						setBtnEnable(false);	
+					setBtnEnable(false);
 				} else {
 					setBtnEnable(true);
 				}
 			}
-			
 		} else {
-		setBtnEnable(true);	
-}
-	
+			setBtnEnable(true);
+		}
 	};
-
 
 	// =================================================
 	// Test DataConnection
 	// =================================================
 
 	const getDatabaseConnectionTest = () => {
-		let data:any = {
+		let data: any = {
 			connectionName: account.connectionName,
 			vendor: account.vendor,
 			server: account.server,
 			port: account.port,
 			database: account.database,
 			password: account.password,
-			};
-			if(account.vendor === "databricks"){
-				data.httpPath = account.httppath;
-			 }else{
-				 data.username = account.username;
-			 }
+		};
+		if (account.vendor === "databricks") {
+			data.httpPath = account.httppath;
+		} else {
+			data.username = account.username;
+		}
 		return FetchData({
 			requestType: "withData",
 			method: "POST",
@@ -111,7 +97,7 @@ function FormDialog({
 	};
 
 	const handleonTest = async () => {
-		 if (
+		if (
 			account.vendor !== "" &&
 			account.server !== "" &&
 			account.port !== "" &&
@@ -119,72 +105,69 @@ function FormDialog({
 			account.connectionName !== "" &&
 			account.password &&
 			(account.password !== "" || account.password !== undefined)
-		)
-			{
-				if (account.vendor === 'databricks') {
-					if (account.httppath !== "") {
-						var response: any = await getDatabaseConnectionTest();
+		) {
+			if (account.vendor === "databricks") {
+				if (account.httppath !== "") {
+					var response: any = await getDatabaseConnectionTest();
 
-						if (response.status) {
-							setSeverity("success");
-							setOpenAlert(true);
-							setTestMessage("Test Connection successfull");
-							setTimeout(() => {
-								setOpenAlert(false);
-								setTestMessage("");
-							}, 3000);
-						} else {
-							setSeverity("error");
-							setOpenAlert(true);
-							setTestMessage(response.data.message);
-							// setTimeout(() => {
-							// 	setOpenAlert(false);
-							// 	setTestMessage("");
-							// }, 4000);
-						}
+					if (response.status) {
+						setSeverity("success");
+						setOpenAlert(true);
+						setTestMessage("Test Connection successfull");
+						setTimeout(() => {
+							setOpenAlert(false);
+							setTestMessage("");
+						}, 3000);
 					} else {
 						setSeverity("error");
-			            setOpenAlert(true);
-			            setTestMessage("Please Fillout All the fields");
-			            // setTimeout(() => {
-			            // 	setOpenAlert(false);
-			            // 	setTestMessage("");
-			            // }, 4000);
+						setOpenAlert(true);
+						setTestMessage(response.data.message);
+						// setTimeout(() => {
+						// 	setOpenAlert(false);
+						// 	setTestMessage("");
+						// }, 4000);
 					}
+				} else {
+					setSeverity("error");
+					setOpenAlert(true);
+					setTestMessage("Please Fillout All the fields");
+					// setTimeout(() => {
+					// 	setOpenAlert(false);
+					// 	setTestMessage("");
+					// }, 4000);
 				}
-				else {
-					if (account.username !== ""){
-							var response: any = await getDatabaseConnectionTest();
-	
-							if (response.status) {
-								setSeverity("success");
-								setOpenAlert(true);
-								setTestMessage("Test Connection successfull");
-								setTimeout(() => {
-									setOpenAlert(false);
-									setTestMessage("");
-								}, 3000);
-							} else {
-								setSeverity("error");
-								setOpenAlert(true);
-								setTestMessage(response.data.message);
-								// setTimeout(() => {
-								// 	setOpenAlert(false);
-								// 	setTestMessage("");
-								// }, 4000);
-							}
-						} else {
-							setSeverity("error");
-							setOpenAlert(true);
-							setTestMessage("Please Fillout All the fields");
-							// setTimeout(() => {
-							// 	setOpenAlert(false);
-							// 	setTestMessage("");
-							// }, 4000);
-						}
+			} else {
+				if (account.username !== "") {
+					let response: any = await getDatabaseConnectionTest();
+
+					if (response.status) {
+						setSeverity("success");
+						setOpenAlert(true);
+						setTestMessage("Test Connection successfull");
+						setTimeout(() => {
+							setOpenAlert(false);
+							setTestMessage("");
+						}, 3000);
+					} else {
+						setSeverity("error");
+						setOpenAlert(true);
+						setTestMessage(response.data.message);
+						// setTimeout(() => {
+						// 	setOpenAlert(false);
+						// 	setTestMessage("");
+						// }, 4000);
+					}
+				} else {
+					setSeverity("error");
+					setOpenAlert(true);
+					setTestMessage("Please Fillout All the fields");
+					// setTimeout(() => {
+					// 	setOpenAlert(false);
+					// 	setTestMessage("");
+					// }, 4000);
 				}
 			}
-		else {
+		} else {
 			setSeverity("error");
 			setOpenAlert(true);
 			setTestMessage("Please Fillout All the fields");
@@ -192,7 +175,7 @@ function FormDialog({
 			// 	setOpenAlert(false);
 			// 	setTestMessage("");
 			// }, 4000);
-		} 
+		}
 	};
 
 	//==============================================================
@@ -236,7 +219,6 @@ function FormDialog({
 		});
 
 		if (result.status) {
-			setDcDel(false);
 			setSeverity("success");
 			setOpenAlert(true);
 			setTestMessage("Deleted Successfully!");
@@ -244,7 +226,7 @@ function FormDialog({
 				setOpenAlert(false);
 				setTestMessage("");
 				showAndHideForm();
-				setDcDelMeg("");
+
 				getInformation();
 			}, 3000);
 		} else {
@@ -271,12 +253,11 @@ function FormDialog({
 			account.connectionName !== "" &&
 			account.password &&
 			(account.password !== "" || account.password !== undefined)
-		) 
-		{
-			if (account.vendor === 'databricks') {
-				if (account.httppath !== ""){
+		) {
+			if (account.vendor === "databricks") {
+				if (account.httppath !== "") {
 					var response: any = await getDatabaseConnectionTest();
-		
+
 					if (response.status) {
 						if (regOrUpdate === "Update") {
 							handleonUpdate();
@@ -293,9 +274,7 @@ function FormDialog({
 						// 	setTestMessage("");
 						// }, 4000);
 					}
-				} 
-			
-				else {
+				} else {
 					setSeverity("error");
 					setOpenAlert(true);
 					setTestMessage("Please Fillout All the fields");
@@ -304,11 +283,10 @@ function FormDialog({
 					// 	setTestMessage("");
 					// }, 4000);
 				}
-			}
-			else {
-				if (account.username !== ""){
-					var response: any = await getDatabaseConnectionTest();
-		
+			} else {
+				if (account.username !== "") {
+					let response: any = await getDatabaseConnectionTest();
+
 					if (response.status) {
 						if (regOrUpdate === "Update") {
 							handleonUpdate();
@@ -325,9 +303,7 @@ function FormDialog({
 						// 	setTestMessage("");
 						// }, 4000);
 					}
-				} 
-			
-				else {
+				} else {
 					setSeverity("error");
 					setOpenAlert(true);
 					setTestMessage("Please Fillout All the fields");
@@ -337,10 +313,7 @@ function FormDialog({
 					// }, 4000);
 				}
 			}
-			
-		}
-		
-		else {
+		} else {
 			setSeverity("error");
 			setOpenAlert(true);
 			setTestMessage("Please Fillout All the fields");
@@ -363,10 +336,10 @@ function FormDialog({
 		}
 		if (connection === "redshift") {
 			return "5439";
-		} 
+		}
 		if (connection === "databricks") {
 			return "443";
-		}else {
+		} else {
 			return "";
 		}
 	};
@@ -423,7 +396,12 @@ function FormDialog({
 									setAccount({
 										...account,
 										vendor: e.target.value,
-										server: e.target.value === "databricks" ? "" : "localhost" && e.target.value === "redshift" ? "" : "localhost" ,
+										server:
+											e.target.value === "databricks"
+												? ""
+												: "localhost" && e.target.value === "redshift"
+												? ""
+												: "localhost",
 										port: getUrlAndPort(e.target.value),
 										database: e.target.value === "databricks" ? "default" : "",
 									});
@@ -440,7 +418,6 @@ function FormDialog({
 									}
 								}}
 							>
-								
 								<MenuItem value="redshift">
 									<img src={redshiftIcon} alt="" className="vendorIconStyle" />
 									<Typography>Amazon Redshift</Typography>
@@ -464,7 +441,7 @@ function FormDialog({
 							</Select>
 						</FormControl>
 						<small className="dbConnectionErrorText">{account.vendorError}</small>
-                        
+
 						<TextFieldComponent
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setAccount({ ...account, server: e.target.value });
@@ -475,15 +452,25 @@ function FormDialog({
 								if (account.server.length === 0) {
 									setAccount({
 										...account,
-										serverError: account.vendor === "databricks" ? "Server Hostname should not be empty" : "Server Url should not be empty",
+										serverError:
+											account.vendor === "databricks"
+												? "Server Hostname should not be empty"
+												: "Server Url should not be empty",
 									});
 									btnEnabelDisable();
 								}
 							}}
-							{...{ viewMode, value: account.server, lable: account.vendor === "databricks" ? "Server Hostname" : "Server Url"}}
+							{...{
+								viewMode,
+								value: account.server,
+								lable:
+									account.vendor === "databricks"
+										? "Server Hostname"
+										: "Server Url",
+							}}
 						/>
 						<small className="dbConnectionErrorText">{account.serverError}</small>
-                         
+
 						<TextFieldComponent
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setAccount({ ...account, port: e.target.value });
@@ -502,7 +489,7 @@ function FormDialog({
 							{...{ viewMode, value: account.port, lable: "Port", type: "number" }}
 						/>
 						<small className="dbConnectionErrorText">{account.portError}</small>
-                       
+
 						<TextFieldComponent
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setAccount({ ...account, database: e.target.value });
@@ -518,55 +505,58 @@ function FormDialog({
 									btnEnabelDisable();
 								}
 							}}
-							{...{ viewMode, value: account.database, lable: "Database"}}
+							{...{ viewMode, value: account.database, lable: "Database" }}
 						/>
 						<small className="dbConnectionErrorText">{account.databaseError}</small>
-					
-                         
-						{account.vendor === "databricks" ?
-						<>
-						<TextFieldComponent
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-								setAccount({ ...account, httppath: e.target.value });
-								btnEnabelDisable();
-							}}
-							onFocus={() => setAccount({ ...account, httppathError: "" })}
-							onBlur={() => {
-								if (account.httppath.length === 0) {
-									setAccount({
-										...account,
-										httppathError: "HTTP Path should not be Empty",
-									});
-									btnEnabelDisable();
-								}
-							}}
-							{...{ viewMode, value: account.httppath, lable: "HTTP Path" }}
-						/>
-						<small className="dbConnectionErrorText">{account.httppathError}</small>
-						</>
-                        :
-						<>
-						<TextFieldComponent
-							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-								setAccount({ ...account, username: e.target.value });
-								btnEnabelDisable();
-							}}
-							onFocus={() => setAccount({ ...account, userNameError: "" })}
-							onBlur={() => {
-								if (account.username.length === 0) {
-									setAccount({
-										...account,
-										userNameError: "Username should not be Empty",
-									});
-									btnEnabelDisable();
-								}
-							}}
-							{...{ viewMode, value: account.username, lable: "Username"}}
-						/>
-						<small className="dbConnectionErrorText">{account.userNameError}</small>
-						</>
-						} 
-                        
+
+						{account.vendor === "databricks" ? (
+							<>
+								<TextFieldComponent
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+										setAccount({ ...account, httppath: e.target.value });
+										btnEnabelDisable();
+									}}
+									onFocus={() => setAccount({ ...account, httppathError: "" })}
+									onBlur={() => {
+										if (account.httppath.length === 0) {
+											setAccount({
+												...account,
+												httppathError: "HTTP Path should not be Empty",
+											});
+											btnEnabelDisable();
+										}
+									}}
+									{...{ viewMode, value: account.httppath, lable: "HTTP Path" }}
+								/>
+								<small className="dbConnectionErrorText">
+									{account.httppathError}
+								</small>
+							</>
+						) : (
+							<>
+								<TextFieldComponent
+									onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+										setAccount({ ...account, username: e.target.value });
+										btnEnabelDisable();
+									}}
+									onFocus={() => setAccount({ ...account, userNameError: "" })}
+									onBlur={() => {
+										if (account.username.length === 0) {
+											setAccount({
+												...account,
+												userNameError: "Username should not be Empty",
+											});
+											btnEnabelDisable();
+										}
+									}}
+									{...{ viewMode, value: account.username, lable: "Username" }}
+								/>
+								<small className="dbConnectionErrorText">
+									{account.userNameError}
+								</small>
+							</>
+						)}
+
 						<TextFieldComponent
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								setAccount({ ...account, password: e.target.value });
@@ -577,7 +567,10 @@ function FormDialog({
 								if (account.password.length === 0) {
 									setAccount({
 										...account,
-										passwordError: account.vendor === "databricks" ? "Token should not be Empty" : "Password should not be Empty",
+										passwordError:
+											account.vendor === "databricks"
+												? "Token should not be Empty"
+												: "Password should not be Empty",
 									});
 									btnEnabelDisable();
 								}
@@ -615,7 +608,7 @@ function FormDialog({
 						<small className="dbConnectionErrorText">
 							{account.connectionNameError}
 						</small>
-						
+
 						{viewMode ? (
 							<div className="dbFormButton">
 								<Button
@@ -682,7 +675,14 @@ function FormDialog({
 					</div>
 					<div className="dbDeleteDialogBtnContainer">
 						<Button
-							className="dbDeleteDialogBtn1"
+							sx={{
+								textTransform: "none",
+								backgroundColor: "rgba(224,224,224,1)",
+								color: "red",
+								":hover": {
+									backgroundColor: "rgba(224,224,224,1)",
+								},
+							}}
 							onClick={() => setOpenConfirmDialog(false)}
 							variant="contained"
 						>
@@ -690,7 +690,13 @@ function FormDialog({
 						</Button>
 
 						<Button
-							className="dbDeleteDialogBtn2"
+							sx={{
+								textTransform: "none",
+								backgroundColor: "red",
+								":hover": {
+									backgroundColor: "red",
+								},
+							}}
 							variant="contained"
 							onClick={() => {
 								setOpenConfirmDialog(false);

@@ -30,11 +30,10 @@ const DataHome = () => {
 					display: "flex",
 					flexDirection: "column",
 					height: "100%",
-					backgroundColor: "pink",
 					borderTop: "2px solid rgba(224,224,224,1)",
 				}}
 			>
-				<div style={{ flex: 1, display: "flex" }}>
+				<div style={{ flex: 1, display: "flex", maxHeight: "100%", overflow: "scroll" }}>
 					<div
 						style={{
 							flex: 1,
@@ -48,7 +47,7 @@ const DataHome = () => {
 						<DataSetList />
 					</div>
 				</div>
-				<div style={{ flex: 1, display: "flex", maxHeight: "100%", overflow: "hidden" }}>
+				<div style={{ flex: 1, display: "flex", maxHeight: "100%", overflow: "scroll" }}>
 					<div style={{ flex: 1, borderRight: "2px solid  rgba(224,224,224,1)" }}>
 						<FlatFile />
 					</div>
@@ -62,7 +61,3 @@ const DataHome = () => {
 };
 
 export default DataHome;
-
-
-
- 

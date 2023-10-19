@@ -29,7 +29,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
-	deleteItemInChartPropForDm,
 	editChartPropItemForDm,
 	revertAxesForDm,
 	sortAxesForDm,
@@ -75,6 +74,7 @@ const UserFilterCardForDm = ({
 		});
 
 		updtateFilterExpandeCollapseForDm(propKey, bIndex, res);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isCollapsed]);
 
 	const originalIndex = selectedDynamicMeasureProps.chartAxes[bIndex].fields.findIndex(
@@ -83,6 +83,7 @@ const UserFilterCardForDm = ({
 
 	//const [showOptions, setShowOptions] = useState(false);
 	const [loading, setLoading] = useState(false);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let sliderRange = [0, 0];
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -125,11 +126,6 @@ const UserFilterCardForDm = ({
 	];
 
 	let filterFieldData = JSON.parse(JSON.stringify(field));
-
-	var includeExcludeOptions: PatternCollectionType[] = [
-		{ name: "Include", value: "Include" },
-		{ name: "Exclude", value: "Exclude" },
-	];
 
 	/* Initialize vaiarble to default values */
 
@@ -210,14 +206,8 @@ const UserFilterCardForDm = ({
 
 		// eslint-disable-next-line
 		updateLeftFilterItemForDm(propKey, 0, constructChartAxesFieldObject());
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-
-	var menuStyle = { fontSize: "12px", padding: "2px 1rem" };
-	var menuSelectedStyle = {
-		fontSize: "12px",
-		padding: "2px 1rem",
-		backgroundColor: "rgba(25, 118, 210, 0.08)",
-	};
 
 	///Fech Field data for Pick List
 	const fetchFieldData = (type: string) => {
@@ -612,14 +602,6 @@ const UserFilterCardForDm = ({
 		}
 	};
 
-	///Search condition Silder on change handler
-	const handleSliderRangeOnChange = (event: any, newValue: any) => {
-		filterFieldData["greaterThanOrEqualTo"] = newValue[0];
-		filterFieldData["lessThanOrEqualTo"] = newValue[1];
-		sliderRange = newValue;
-		updateLeftFilterItemForDm(propKey, 0, constructChartAxesFieldObject());
-	};
-
 	const checkValidDate = (val: any) => {
 		if (
 			["date", "timestamp"].includes(dataType) &&
@@ -675,10 +657,6 @@ const UserFilterCardForDm = ({
 	///Handle Menu button on click
 	const handleClick = (event: any) => {
 		setAnchorEl(event.currentTarget);
-	};
-
-	const handleExpandCollapse = (e: any) => {
-		// filterFieldData.isCollapsed = e;
 	};
 
 	///Remove filter card from dropzone
@@ -789,26 +767,8 @@ const UserFilterCardForDm = ({
 
 	///Render Search Condition Between Control
 	const SearchConditionBetweenControl = () => {
-		let _marks = [
-			{
-				value: filterFieldData.greaterThanOrEqualTo,
-				label: filterFieldData.greaterThanOrEqualTo?.toString(),
-			},
-			{
-				value: filterFieldData.lessThanOrEqualTo,
-				label: filterFieldData.lessThanOrEqualTo?.toString(),
-			},
-		];
-
 		return (
 			<>
-				{/*<StyledSlider
-          value={sliderRange}
-          onChange={handleSliderRangeOnChange}
-          min={filterFieldData.greaterThanOrEqualTo}
-          max={filterFieldData.lessThanOrEqualTo}
-          marks={_marks}
-           />*/}
 				<TextField
 					type="number"
 					className="CustomInputValue"

@@ -11,8 +11,8 @@ import DashGraph from "./DashGraph";
 import { Dispatch } from "redux";
 import { updateDashGraphPosition, updateDashGraphSize } from "../../redux/TabTile/TabActions";
 import { Rnd } from "react-rnd";
-import ChartAxes from '../ChartAxes/ChartAxes';
-
+import ChartAxes from "../ChartAxes/ChartAxes";
+import { updateCardControls } from "../../redux/ChartPoperties/ChartControlsActions";
 
 const GraphRNDDash = ({
 	style,
@@ -24,6 +24,7 @@ const GraphRNDDash = ({
 
 	updateDashGraphPos,
 	updateDashGraphSz,
+	updateCardControls,
 
 	chartProp,
 	tabTileProps,
@@ -68,13 +69,11 @@ const GraphRNDDash = ({
 			style={boxDetails.highlight || hovering ? style2 : style}
 			size={{ width: boxDetails.width * gridSize.x, height: boxDetails.height * gridSize.y }}
 			position={{ x: boxDetails.x * gridSize.x, y: boxDetails.y * gridSize.y }}
-			onDragStart={(e: any, d: any) => {
-			}}
+			onDragStart={(e: any, d: any) => {}}
 			onDrag={(e: any, d: any) => {
 				setStyle({ ...style, border: "1px solid gray" });
 			}}
 			onDragStop={(e: any, d: any) => {
-				
 				updateDashGraphPos(
 					tabId,
 					boxDetails.propKey,
@@ -90,6 +89,22 @@ const GraphRNDDash = ({
 
 				var height = ref.style.height.replace("px", "");
 				var heightInt = Number(height);
+
+				if (chartProp.properties[boxDetails.propKey].chartType === "simplecard") {
+					if (
+						(widthInt / gridSize.x) * gridSize.x < 350 &&
+						(heightInt / gridSize.y) * gridSize.y < 250
+					) {
+						updateCardControls(boxDetails.propKey, "fontSize", 20);
+						updateCardControls(boxDetails.propKey, "subTextFontSize", (20 * 5.5) / 100);
+						console.log("width is below 200");
+					}
+
+					// 	console.log(boxDetails.width * gridSize.x);
+					// console.log(boxDetails.height * gridSize.y);
+				}
+				console.log((widthInt / gridSize.x) * gridSize.x);
+				console.log((heightInt / gridSize.y) * gridSize.y);
 
 				updateDashGraphSz(
 					tabId,
@@ -199,6 +214,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => {
 			width: any,
 			height: any
 		) => dispatch(updateDashGraphSize(tabId, propKey, x, y, width, height)),
+		updateCardControls: (propKey: string, option: string, value: any) =>
+			dispatch(updateCardControls(propKey, option, value)),
 		// graphHighlight: (tabId: number, propKey: string) =>
 		// 	dispatch(updateGraphHighlight(tabId, propKey)),
 	};

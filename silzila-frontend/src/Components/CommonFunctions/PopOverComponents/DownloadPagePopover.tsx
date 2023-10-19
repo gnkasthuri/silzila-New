@@ -13,17 +13,21 @@ import {
 } from "../../../redux/PageSettings/DownloadPageSettingsActions";
 import { Dispatch } from "redux";
 import { orientations, paperSize } from "./pageSettingsData";
-import { useEffect, useState } from "react";
-import { setCustomHeight } from "../../../redux/TabTile/TabActions";
+interface Props {
+	pageSettings: any;
+
+	setPageSettings: (option: string, value: any) => void;
+	resetPageSettings: () => void;
+}
 
 const DownloadPagePopover = ({
+	//state
 	pageSettings,
-	tabTileProps,
-	//
 
+	//dispatch
 	setPageSettings,
 	resetPageSettings,
-}: any) => {
+}: Props) => {
 	const textFieldStyleProps = {
 		style: {
 			fontSize: "12px",
@@ -300,7 +304,6 @@ const DownloadPagePopover = ({
 const mapStateToProps = (state: any, ownProps: any) => {
 	return {
 		pageSettings: state.pageSettings,
-		tabTileProps: state.tabTileProps,
 	};
 };
 const mapDispatchToProps = (dispatch: Dispatch<any>) => {

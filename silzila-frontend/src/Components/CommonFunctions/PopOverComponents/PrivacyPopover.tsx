@@ -48,6 +48,7 @@ const PrivacyPopover = ({ openPrivacy, setOpenPrivacy }: PrivacyPopoverProps) =>
 						<a
 							href="mailto:example@silzila.org?subject=Silzila%20Feedback"
 							target="_blank"
+							rel="noreferrer"
 						>
 							email us
 						</a>
@@ -55,7 +56,7 @@ const PrivacyPopover = ({ openPrivacy, setOpenPrivacy }: PrivacyPopoverProps) =>
 					</p>
 					<p>
 						To report a bug, visit our{" "}
-						<a href={githubAddress} target="_blank">
+						<a href={githubAddress} target="_blank" rel="noreferrer">
 							git hub issues
 						</a>{" "}
 						page.

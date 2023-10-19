@@ -104,7 +104,11 @@ const Login = (props: DispatchProps) => {
 				}, 1000);
 			} else {
 				setLoginError(true);
-				setServerErrorMessage(response.data.detail);
+				if (response.data.status === 401) {
+					setServerErrorMessage("Wrong Password");
+				} else {
+					setServerErrorMessage("Not a valid Email");
+				}
 			}
 		} else {
 			setLoginError(true);

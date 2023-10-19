@@ -46,6 +46,7 @@ const RoseChart = ({
 				});
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chartData, chartControl]);
 	var chartThemes: any[] = ColorSchemes.filter(el => {
 		return el.name === chartControl.colorScheme;

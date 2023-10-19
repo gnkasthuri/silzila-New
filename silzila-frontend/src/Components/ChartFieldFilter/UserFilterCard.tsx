@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from "react";
 import "../ChartAxes/Card.css";
 import "./UserFilterCard.css";
@@ -30,7 +31,6 @@ import { PatternCollectionType } from "./UserFilterCardInterface";
 import { Dispatch } from "redux";
 import { ChartPropertiesStateProps } from "../../redux/ChartPoperties/ChartPropertiesInterfaces";
 import { isLoggedProps } from "../../redux/UserInfo/IsLoggedInterfaces";
-import { TabTileStateProps2 } from "../../redux/TabTile/TabTilePropsInterfaces";
 import { UserFilterCardProps } from "./UserFilterCardInterface";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -44,7 +44,6 @@ const UserFilterCard = ({
 	token,
 
 	// state
-	tabTileProps,
 	chartProp,
 
 	// dispatch
@@ -65,6 +64,7 @@ const UserFilterCard = ({
 			return el;
 		});
 		updtateFilterExpandeCollapse(propKey, bIndex, res);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isCollapsed]);
 
 	const originalIndex = chartProp.properties[propKey].chartAxes[bIndex].fields.findIndex(
@@ -1221,12 +1221,8 @@ const UserFilterCard = ({
 	);
 };
 
-const mapStateToProps = (
-	state: TabTileStateProps2 & ChartPropertiesStateProps & isLoggedProps,
-	ownProps: any
-) => {
+const mapStateToProps = (state: ChartPropertiesStateProps & isLoggedProps, ownProps: any) => {
 	return {
-		tabTileProps: state.tabTileProps,
 		chartProp: state.chartProperties,
 		token: state.isLogged.accessToken,
 	};

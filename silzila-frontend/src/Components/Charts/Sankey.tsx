@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ReactEcharts from "echarts-for-react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -113,6 +114,7 @@ const Sankey = ({
 			let valuesOfLink = [];
 
 			for (var i = 0; i < dimensionsKeys.length - 1; i++) {
+				// eslint-disable-next-line no-loop-func
 				valuesOfLink = chartData.map((el: any) => {
 					var obj: any = {};
 					obj.source =

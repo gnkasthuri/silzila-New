@@ -228,6 +228,7 @@ const TableConditionalFormatting = ({
 
 			setMenu(output);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chartControls.properties[propKey].chartData]);
 
 	return (

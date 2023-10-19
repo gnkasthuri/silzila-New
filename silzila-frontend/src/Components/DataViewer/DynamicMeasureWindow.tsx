@@ -56,7 +56,7 @@ const DynamicMeasureWindow = ({
 	updateRichTextOnAddingDYnamicMeasure,
 }: any) => {
 	var propKey: string = `${tabTileProps.selectedTabId}.${tabTileProps.selectedTileId}`;
-	var dynamicMeasurePropKey: string = `${tabTileProps.selectedTileId}.${dynamicMeasureState.selectedDynamicMeasureId}`;
+	var dynamicMeasurePropKey: string = `${dynamicMeasureState.selectedTileId}.${dynamicMeasureState.selectedDynamicMeasureId}`;
 	var selectedDynamicMeasureProps =
 		dynamicMeasureState.dynamicMeasureProps[dynamicMeasureState.selectedTabId]?.[
 			dynamicMeasureState.selectedTileId
@@ -67,8 +67,6 @@ const DynamicMeasureWindow = ({
 	const [openAlert, setOpenAlert] = useState<boolean>(false);
 	const [testMessage, setTestMessage] = useState<string>("");
 	const [severity, setSeverity] = useState<AlertColor>("success");
-	const tabId = tabTileProps.selectedTabId,
-		tileId = tabTileProps.selectedTileId;
 
 	const handleTableChange = async (table: any, dsUid?: any) => {
 		if (table.flatFileId) {
@@ -171,19 +169,19 @@ const DynamicMeasureWindow = ({
 			let style = {};
 			var formats = obj?.conditionalFormats;
 
-		if (formats?.length > 0) {
-			for (let i = formats.length - 1; i >= 0; i--) {
-				if (formats[i].isConditionSatisfied) {					
-					style = formats[i];
-					break;
+			if (formats?.length > 0) {
+				for (let i = formats.length - 1; i >= 0; i--) {
+					if (formats[i].isConditionSatisfied) {
+						style = formats[i];
+						break;
+					}
+					if (i === 0 && !formats[i].isConditionSatisfied) {
+						style = obj.styleOptions;
+					}
 				}
-				if (i === 0 && !formats[i].isConditionSatisfied) {
-					style = obj.styleOptions;
-				}
+			} else {
+				style = obj.styleOptions;
 			}
-		} else {
-			style = obj.styleOptions;
-		}
 
 			updateRichTextOnAddingDYnamicMeasure(
 				propKey,

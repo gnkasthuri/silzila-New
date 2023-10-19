@@ -48,7 +48,6 @@ const DropZone = ({
 
 	// dispatch
 	clearDropZoneFieldsChartPropLeft,
-	updateDropZoneExpandCollapsePropLeft,
 	updateIsAutoFilterEnabledPropLeft,
 	updateFilterAnyContidionMatchPropLeft,
 	updateDropZoneItems,
@@ -396,6 +395,7 @@ const DropZone = ({
 		);
 	};
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [modalData, setModalData] = useState<any>(null);
 
 	const handleClick = (event: any) => {
@@ -502,7 +502,7 @@ const DropZone = ({
 							chartProp.properties[propKey].chartAxes[0].is_auto_filter_enabled ===
 								false ? (
 								<button
-									onClick={e =>
+									onClick={() =>
 										toggleFilterRunState(
 											propKey,
 											!chartProp.properties[propKey].filterRunState
@@ -572,7 +572,7 @@ const DropZone = ({
 					<span className="axisInfo"> Drop (0 - max {ChartsInfo[chartType].dropZones[bIndex].allowedNumbers}) field(s) here</span>
 				) : null */}
 
-				{bIndex == 0 ? (
+				{bIndex === 0 ? (
 					<>
 						{chartType === "richText"
 							? selectedDynamicMeasureProps?.chartAxes[bIndex]?.fields?.map(

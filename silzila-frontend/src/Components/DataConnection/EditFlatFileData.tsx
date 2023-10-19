@@ -550,7 +550,7 @@ const EditFlatFileData = ({
 								<TableCell>1, 2, … 12</TableCell>
 							</TableRow>
 							<TableRow>
-								<TableCell sx={rowspancell}>Local</TableCell>
+								<TableCell sx={rowspancell}>Hour</TableCell>
 								<TableCell>%p</TableCell>
 								<TableCell>Locale’s AM or PM.</TableCell>
 								<TableCell>AM, PM</TableCell>
@@ -597,7 +597,7 @@ const EditFlatFileData = ({
 							</TableRow>
 							<TableRow>
 								<TableCell rowSpan={10} sx={rowspancell}>
-									Anonymous
+									Others
 								</TableCell>
 								<TableCell>%z</TableCell>
 								<TableCell>

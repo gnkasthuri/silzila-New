@@ -382,11 +382,6 @@ const ChartData = ({
 
 	var _propKey: string = `${tabId}.${tileId}`;
 
-	var propKey_1 =
-		chartProperties.properties[_propKey].chartType === "richText"
-			? `${dynamicMeasureState.selectedTileId}.${dynamicMeasureState.selectedDynamicMeasureId}`
-			: _propKey;
-
 	// every time chartAxes or chartType is changed, check if
 	// new data must be obtained from server
 	// check for minimum requirements in each dropzone for the given chart type
@@ -557,24 +552,24 @@ const ChartData = ({
 				chartProp.chartType === "crossTab" ||
 				chartProp.chartType === "boxPlot"
 			) {
-				var combinedValuesForDimension = { name: "Dimension", fields: [] };
-				var values1 = axesValues[1].fields;
-				var values2 = axesValues[2].fields;
-				var allValues = values1.concat(values2);
+				let combinedValuesForDimension = { name: "Dimension", fields: [] };
+				let values1 = axesValues[1].fields;
+				let values2 = axesValues[2].fields;
+				let allValues = values1.concat(values2);
 				combinedValuesForDimension.fields = allValues;
 				axesValues.splice(1, 2, combinedValuesForDimension);
 			}
 
 			if (chartProp.chartType === "table") {
-				var combinedValuesForDimension = { name: "Dimension", fields: [] };
+				let combinedValuesForDimension = { name: "Dimension", fields: [] };
 				// var values1 = axesValues[1].fields;
 				// var values2 = axesValues[2].fields;
 				// var allValues = values1.concat(values2);
 				combinedValuesForDimension.fields = axesValues[1].fields;
 
-				if (axesValues.length == 4) {
+				if (axesValues.length === 4) {
 					axesValues.splice(1, 2, combinedValuesForDimension);
-				} else if (axesValues.length == 3) {
+				} else if (axesValues.length === 3) {
 					axesValues.splice(1, 1, combinedValuesForDimension);
 				}
 			}
@@ -612,7 +607,6 @@ const ChartData = ({
 				dashBoardGroup.groups.length > 0
 			) {
 				let _tileGroups = chartGroup.tabTile[_tabTile];
-				let _count = 0;
 				let _dashBoardTilesCount = 0;
 				let _dashBoardTilesGroups: any = [];
 
@@ -674,8 +668,8 @@ const ChartData = ({
 			});
 		} else {
 			if (
-				tabTileProps.previousTabId == 0 ||
-				tabTileProps.previousTileId == 0 ||
+				tabTileProps.previousTabId === 0 ||
+				tabTileProps.previousTileId === 0 ||
 				// &&
 				// !_checkGroupsNotSame(_propKey)
 				chartProp.axesEdited ||
@@ -687,6 +681,7 @@ const ChartData = ({
 		}
 
 		resetStore();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [
 		chartProp.chartAxes,
 		chartProp.chartType,

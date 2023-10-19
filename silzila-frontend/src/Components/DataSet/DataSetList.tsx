@@ -49,6 +49,8 @@ const DataSetList = ({
 
 	const [dataSetList, setDataSetList] = useState<DatasetItem[]>([]);
 	const [selectedButton, setSelectedButton] = useState<string>("flatFile");
+	const [isFlatFileListEmpty, setIsFlatFileListEmpty] = useState<boolean>(false);
+	const [isDbConnectionListEmpty, setIsDbConnectionListEmpty] = useState<boolean>(false);
 
 	const [openAlert, setOpenAlert] = useState<boolean>(false);
 	const [testMessage, setTestMessage] = useState<string>("");
@@ -149,6 +151,43 @@ const DataSetList = ({
 		}
 	};
 
+	const checkFlatFileListEmpty = async () => {
+		var res: any = await FetchData({
+			requestType: "noData",
+			method: "GET",
+			url: "file-data/",
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		if (res.status) {
+			if (res.data.length === 0) {
+				setIsFlatFileListEmpty(true);
+			}
+		}
+	};
+
+	const checkDbConnectionListEmpty = async () => {
+		var res: any = await FetchData({
+			requestType: "noData",
+			method: "GET",
+			url: "database-connection/",
+			headers: { Authorization: `Bearer ${token}` },
+		});
+
+		if (res.status) {
+			if (res.data.length === 0) {
+				console.log(res.data.length);
+
+				setIsDbConnectionListEmpty(true);
+			}
+		}
+	};
+
+	useEffect(() => {
+		checkFlatFileListEmpty();
+		checkDbConnectionListEmpty();
+	}, []);
+
 	return (
 		<div className="dataConnectionContainer">
 			<div className="containersHead">
@@ -171,54 +210,71 @@ const DataSetList = ({
 				</div>
 			</div>
 			<div className="listContainer">
-				{dataSetList &&
-					dataSetList.map((dc: DatasetItem) => {
-						return (
-							<SelectListItem
-								key={dc.datasetName}
-								//  TODO : need to specify type
-								render={(xprops: any) => (
-									<div
-										className={
-											xprops.open
-												? "dataConnectionListSelected"
-												: "dataConnectionList"
-										}
-										onClick={() => editDs(dc.id)}
-										onMouseOver={() => xprops.setOpen(true)}
-										onMouseLeave={() => xprops.setOpen(false)}
-									>
-										<div className="dataConnectionName">{dc.datasetName}</div>
+				{dataSetList.length > 0 ? (
+					<>
+						{dataSetList.map((dc: DatasetItem) => {
+							return (
+								<SelectListItem
+									key={dc.datasetName}
+									//  TODO : need to specify type
+									render={(xprops: any) => (
+										<div
+											className={
+												xprops.open
+													? "dataConnectionListSelected"
+													: "dataConnectionList"
+											}
+											onClick={() => editDs(dc.id)}
+											onMouseOver={() => xprops.setOpen(true)}
+											onMouseLeave={() => xprops.setOpen(false)}
+										>
+											<div className="dataConnectionName">
+												{dc.datasetName}
+											</div>
 
-										{xprops.open ? (
-											<Tooltip
-												title="Delete Dataset"
-												arrow
-												placement="right-start"
-											>
-												<div
-													className="dataHomeDeleteIcon"
-													onClick={e => {
-														e.stopPropagation();
-														setConfirmDialog(true);
-														setDeleteItemId(dc.id);
-													}}
+											{xprops.open ? (
+												<Tooltip
+													title="Delete Dataset"
+													arrow
+													placement="right-start"
 												>
-													<DeleteIcon
-														style={{
-															width: "1rem",
-															height: "1rem",
-															margin: "auto",
+													<div
+														className="dataHomeDeleteIcon"
+														onClick={e => {
+															e.stopPropagation();
+															setConfirmDialog(true);
+															setDeleteItemId(dc.id);
 														}}
-													/>
-												</div>
-											</Tooltip>
-										) : null}
-									</div>
-								)}
-							/>
-						);
-					})}
+													>
+														<DeleteIcon
+															style={{
+																width: "1rem",
+																height: "1rem",
+																margin: "auto",
+															}}
+														/>
+													</div>
+												</Tooltip>
+											) : null}
+										</div>
+									)}
+								/>
+							);
+						})}
+					</>
+				) : (
+					<div
+						style={{
+							height: "100%",
+							padding: "25% 2rem",
+							color: "#ccc",
+							fontStyle: "italic",
+							fontSize: "14px",
+						}}
+					>
+						*No Datasets created yet, create Dataset to start a PlayBook*
+					</div>
+				)}
 			</div>
 			<NotificationDialog
 				openAlert={openAlert}
@@ -245,6 +301,7 @@ const DataSetList = ({
 						color: "grey",
 						display: "block",
 					}}
+					disabled={isDbConnectionListEmpty}
 					value="dbConnections"
 					onClick={() => {
 						setOpenPopOver(true);
@@ -260,6 +317,7 @@ const DataSetList = ({
 						display: "block",
 					}}
 					value="flatFile"
+					disabled={isFlatFileListEmpty}
 					onClick={() => {
 						setSelectedButton("flatFile");
 						setCreateDsFromFlatFile(true);

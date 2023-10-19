@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import ReactEcharts from "echarts-for-react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -9,10 +10,7 @@ import {
 	ChartsReduxStateProps,
 	FormatterValueProps,
 } from "./ChartsCommonInterfaces";
-import {
-	ChartControlProperties,
-	ChartControlsProps,
-} from "../../redux/ChartPoperties/ChartControlsInterface";
+import { ChartControlsProps } from "../../redux/ChartPoperties/ChartControlsInterface";
 import { ColorSchemes } from "../ChartOptions/Color/ColorScheme";
 
 interface PieChartProps {
@@ -62,6 +60,7 @@ const PieChart = ({
 				});
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chartData, chartControl]);
 
 	chartThemes = ColorSchemes.filter(el => {

@@ -297,6 +297,7 @@ const DataViewerBottom = ({
 			setSelectedDs(`${tabObj.tabId}.${tabObj.nextTileId}`, dsObj);
 		}
 	};
+
 	return (
 		<React.Fragment>
 			{chartProps.properties[propKey].chartType === "richText" ? null : (

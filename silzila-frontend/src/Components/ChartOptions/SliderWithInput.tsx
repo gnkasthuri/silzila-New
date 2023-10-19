@@ -88,18 +88,3 @@ const SliderWithInput = ({
 };
 
 export default SliderWithInput;
-{
-	/* <input
-				// className="inputRange"
-				// style={{ backgroundColor: "red", color: "red", fill: "red", background: "red" }}
-				type="range"
-				min={sliderMinMax.min}
-				max={sliderMinMax.max}
-				step={sliderMinMax.step}
-				value={sliderValue}
-				onInput={(e) => {
-					changeValue(Number(e.target.value));
-				}}
-				title={sliderValue}
-			/> */
-}

@@ -127,7 +127,6 @@ const BottomBar = ({
 				relationshipServerObj.push(relationObj);
 			});
 
-
 			var apiurl: string;
 
 			if (editMode) {
@@ -236,23 +235,36 @@ const BottomBar = ({
 
 	return (
 		<div className="bottomBar">
-			{/* <Button variant="contained" onClick={onCancelOnDataset} id="cancelButton">
+			<Button
+				variant="contained"
+				onClick={onCancelOnDataset}
+				id="cancelButton"
+				sx={{ textTransform: "none" }}
+			>
 				{editMode ? "Back" : "Cancel"}
-			</Button> */}
+			</Button>
 
-			<div style={{ flex: 1, display: "flex", justifyContent: "space-between" }}>
+			<div
+				style={{
+					flex: 1,
+					display: "flex",
+					justifyContent: "flex-end",
+				}}
+			>
 				<Tooltip title="Click to Edit">
 					<TextField
 						sx={{
 							flex: 1,
-							margin: "auto 20px",
 							maxWidth: "200px",
+							margin: "auto 20px",
+							"& .MuiInputLabel-root": {
+								lineHeight: "1.8em",
+							},
 						}}
 						InputProps={TextFieldBorderStyle}
 						inputProps={{
 							style: {
 								height: "35px",
-
 								padding: "0px 10px",
 								fontSize: "14px",
 								color: "#3B3C36",
@@ -272,42 +284,9 @@ const BottomBar = ({
 					/>
 				</Tooltip>
 
-				<TextField
-					sx={{
-						flex: 1,
-						maxWidth: "150px",
-					}}
-					SelectProps={{
-						MenuProps: {
-							anchorOrigin: {
-								vertical: "top",
-								horizontal: "left",
-							},
-						},
-					}}
-					className={classes.root}
-					value={"Save"}
-					variant="outlined"
-					select
-				>
-					<MenuItem value={"Save"} onClick={onSendData}>
-						Save
-					</MenuItem>
-
-					<MenuItem
-						value={editMode ? "Back" : "Cancel"}
-						onClick={(e: any) => {
-							setselectedButton(e.target.value);
-							onCancelOnDataset();
-						}}
-					>
-						{editMode ? "Back" : "Cancel"}
-					</MenuItem>
-				</TextField>
-
-				{/* <Button variant="contained" onClick={onSendData} id="setButton">
+				<Button variant="contained" onClick={onSendData} id="setButton">
 					{sendOrUpdate}
-				</Button> */}
+				</Button>
 			</div>
 
 			<NotificationDialog

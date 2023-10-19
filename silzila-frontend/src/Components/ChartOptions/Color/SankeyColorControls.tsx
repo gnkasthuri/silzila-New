@@ -40,12 +40,17 @@ const SankeyColorControls = ({
 					return { nodeName: el.fieldname, nodeColor: colorSchemes[i] };
 				});
 				setdims(values);
-				Logger("info", "🚀 ~ file: SankeyColorControls.js ~ line 30 ~ useEffect ~ dims", dims);
+				Logger(
+					"info",
+					"🚀 ~ file: SankeyColorControls.js ~ line 30 ~ useEffect ~ dims",
+					dims
+				);
 				updateSankeyStyleOptions(propKey, "nodesAndColors", values);
 			} else {
 				setdims(chartControls.properties[propKey].sankeyControls.nodesAndColors);
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chartData]);
 
 	const renderNodesAndColors = () => {

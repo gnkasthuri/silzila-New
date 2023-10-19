@@ -757,94 +757,92 @@ const GraphArea = ({
 
 	return (
 		<div className="centerColumn" id="centerColumn">
-			{chartProperties.properties[propKey].chartType !== "simplecard" ? (
-				<div className="graphTitleAndEdit">
-					{editTitle ? (
-						<form
-							style={{ width: "100%" }}
-							onSubmit={(evt: any) => {
-								evt.currentTarget.querySelector("input").blur();
-								evt.preventDefault();
+			{/* {chartProperties.properties[propKey].chartType !== "simplecard" ? ( */}
+			<div className="graphTitleAndEdit">
+				{editTitle ? (
+					<form
+						style={{ width: "100%" }}
+						onSubmit={(evt: any) => {
+							evt.currentTarget.querySelector("input").blur();
+							evt.preventDefault();
+						}}
+					>
+						<input
+							autoFocus
+							style={{
+								fontSize: chartProperties.properties[propKey]
+									.isDynamicMeasureWindowOpened
+									? "25px"
+									: chartProperties.properties[propKey].titleOptions.fontSize,
+
+								textAlign: chartProperties.properties[propKey]
+									.isDynamicMeasureWindowOpened
+									? "left"
+									: chartProperties.properties[propKey].titleOptions.titleAlign,
 							}}
-						>
-							<input
-								autoFocus
-								style={{
-									fontSize: chartProperties.properties[propKey]
-										.isDynamicMeasureWindowOpened
-										? "25px"
-										: chartProperties.properties[propKey].titleOptions.fontSize,
-
-									textAlign: chartProperties.properties[propKey]
-										.isDynamicMeasureWindowOpened
-										? "left"
-										: chartProperties.properties[propKey].titleOptions
-												.titleAlign,
-								}}
-								type="text"
-								className="editTitle"
-								value={inputTitleText}
-								onChange={handleTitleChange}
-								onBlur={() => completeRename()}
-							/>
-						</form>
-					) : (
-						<>
-							<div
-								className="graphTitle"
-								style={{
-									fontSize: chartProperties.properties[propKey]
-										.isDynamicMeasureWindowOpened
-										? selectedDynamicMeasureProp?.fontSize
-										: chartProperties.properties[propKey].titleOptions.fontSize,
-									textAlign: chartProperties.properties[propKey]
-										.isDynamicMeasureWindowOpened
-										? selectedDynamicMeasureProp?.titleAlign
-										: chartProperties.properties[propKey].titleOptions
-												.titleAlign,
-									paddingLeft: chartProperties.properties[propKey]
-										.isDynamicMeasureWindowOpened
-										? selectedDynamicMeasureProp?.titleLeftPadding
-										: chartProperties.properties[propKey].titleOptions
-												.titleLeftPadding,
-								}}
-								onDoubleClick={() => editTitleText()}
-								title="Double click to set title manually"
-							>
-								{chartProperties.properties[propKey].isDynamicMeasureWindowOpened
-									? selectedDynamicMeasureProp?.dynamicMeasureName
-									: chartProperties.properties[propKey]?.titleOptions?.chartTitle}
-							</div>
-						</>
-					)}
-
-					{showSqlCode ? (
+							type="text"
+							className="editTitle"
+							value={inputTitleText}
+							onChange={handleTitleChange}
+							onBlur={() => completeRename()}
+						/>
+					</form>
+				) : (
+					<>
 						<div
-							className="graphAreaIcons"
-							onClick={() => {
-								setShowSqlCode(false);
+							className="graphTitle"
+							style={{
+								fontSize: chartProperties.properties[propKey]
+									.isDynamicMeasureWindowOpened
+									? selectedDynamicMeasureProp?.fontSize
+									: chartProperties.properties[propKey].titleOptions.fontSize,
+								textAlign: chartProperties.properties[propKey]
+									.isDynamicMeasureWindowOpened
+									? selectedDynamicMeasureProp?.titleAlign
+									: chartProperties.properties[propKey].titleOptions.titleAlign,
+								paddingLeft: chartProperties.properties[propKey]
+									.isDynamicMeasureWindowOpened
+									? selectedDynamicMeasureProp?.titleLeftPadding
+									: chartProperties.properties[propKey].titleOptions
+											.titleLeftPadding,
 							}}
-							title="View graph"
+							onDoubleClick={() => editTitleText()}
+							title="Double click to set title manually"
 						>
-							<BarChartIcon />
+							{chartProperties.properties[propKey].isDynamicMeasureWindowOpened
+								? selectedDynamicMeasureProp?.dynamicMeasureName
+								: chartProperties.properties[propKey]?.titleOptions?.chartTitle}
 						</div>
-					) : (
-						<>
-							{!pageSettings.callForDownload &&
-							!chartProperties.properties[propKey].isDynamicMeasureWindowOpened ? (
-								<div className="graphAreaIcons">
-									<MoreVertOutlined
-										onClick={(e: any) => {
-											setOpen(true);
-											setAnchorEl(e.currentTarget);
-										}}
-									/>
-								</div>
-							) : null}
-						</>
-					)}
-				</div>
-			) : null}
+					</>
+				)}
+
+				{showSqlCode ? (
+					<div
+						className="graphAreaIcons"
+						onClick={() => {
+							setShowSqlCode(false);
+						}}
+						title="View graph"
+					>
+						<BarChartIcon />
+					</div>
+				) : (
+					<>
+						{!pageSettings.callForDownload &&
+						!chartProperties.properties[propKey].isDynamicMeasureWindowOpened ? (
+							<div className="graphAreaIcons">
+								<MoreVertOutlined
+									onClick={(e: any) => {
+										setOpen(true);
+										setAnchorEl(e.currentTarget);
+									}}
+								/>
+							</div>
+						) : null}
+					</>
+				)}
+			</div>
+			{/* ) : null} */}
 			<div
 				id="graphContainer"
 				className="graphContainer"

@@ -33,7 +33,6 @@ import { ChartFilterGroupCardProps } from "../../redux/ChartFilterGroup/ChartFil
 import { ChartPropertiesStateProps } from "../../redux/ChartPoperties/ChartPropertiesInterfaces";
 import { isLoggedProps } from "../../redux/UserInfo/IsLoggedInterfaces";
 import { ChartFilterGroupStateProps } from "../../redux/ChartFilterGroup/ChartFilterGroupInterface";
-import { DashBoardStateProps } from "../DashBoard/DashBoardInterfaces";
 
 const ChartFilterGroupCard = ({
 	propKey,
@@ -64,6 +63,7 @@ const ChartFilterGroupCard = ({
 
 	//const [showOptions, setShowOptions] = useState(false);
 	const [loading, setLoading] = useState(false);
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	let sliderRange = [0, 0];
 
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -106,11 +106,6 @@ const ChartFilterGroupCard = ({
 	];
 
 	let filterFieldData = JSON.parse(JSON.stringify(field));
-
-	var includeExcludeOptions: PatternCollectionType[] = [
-		{ name: "Include", value: "Include" },
-		{ name: "Exclude", value: "Exclude" },
-	];
 
 	/* Initialize vaiarble to default values */
 
@@ -201,13 +196,6 @@ const ChartFilterGroupCard = ({
 		// eslint-disable-next-line
 	}, []);
 
-	var menuStyle = { fontSize: "12px", padding: "2px 1rem" };
-	var menuSelectedStyle = {
-		fontSize: "12px",
-		padding: "2px 1rem",
-		backgroundColor: "rgba(25, 118, 210, 0.08)",
-	};
-
 	///Fech Field data for Pick List
 	const fetchFieldData = (type: string) => {
 		let bodyData: any = {
@@ -283,7 +271,7 @@ const ChartFilterGroupCard = ({
 		type: "card",
 
 		end: (dropResult, monitor) => {
-			const { uId, bIndex, originalIndex } = monitor.getItem();
+			const { uId, originalIndex } = monitor.getItem();
 
 			const didDrop = monitor.didDrop();
 
@@ -602,6 +590,7 @@ const ChartFilterGroupCard = ({
 	};
 
 	///Search condition Silder on change handler
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const handleSliderRangeOnChange = (event: any, newValue: any) => {
 		filterFieldData["greaterThanOrEqualTo"] = newValue[0];
 		filterFieldData["lessThanOrEqualTo"] = newValue[1];
@@ -664,10 +653,6 @@ const ChartFilterGroupCard = ({
 	///Handle Menu button on click
 	const handleClick = (event: any) => {
 		setAnchorEl(event.currentTarget);
-	};
-
-	const handleExpandCollapse = (e: any) => {
-		// filterFieldData.isCollapsed = e;
 	};
 
 	///Remove filter card from dropzone
@@ -781,17 +766,6 @@ const ChartFilterGroupCard = ({
 
 	///Render Search Condition Between Control
 	const SearchConditionBetweenControl = () => {
-		let _marks = [
-			{
-				value: filterFieldData.greaterThanOrEqualTo,
-				label: filterFieldData.greaterThanOrEqualTo?.toString(),
-			},
-			{
-				value: filterFieldData.lessThanOrEqualTo,
-				label: filterFieldData.lessThanOrEqualTo?.toString(),
-			},
-		];
-
 		return (
 			<>
 				{/*<StyledSlider

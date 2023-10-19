@@ -1,25 +1,14 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import { connect } from "react-redux";
 import "./chartStyle.css";
 import SliderWithInput from "../SliderWithInput";
-import { FormControl, MenuItem, Popover, Select, TextField } from "@mui/material";
-import SwitchWithInput from "../SwitchWithInput";
+import { FormControl, MenuItem, Popover, Select } from "@mui/material";
 import { Dispatch } from "redux";
 import { updateCardControls } from "../../../redux/ChartPoperties/ChartControlsActions";
 import { ChartOptionsProps, ChartOptionsStateProps } from "../CommonInterfaceForChartOptions";
-import { ChartConBoxPlotChartControls } from "../../../redux/ChartPoperties/ChartControlsInterface";
 import { useState } from "react";
 import { ColorResult, SketchPicker } from "react-color";
 import { SelectComponentStyle, menuItemStyle } from "../Labels/SnakeyLabelOptions";
-
-const textFieldInputProps = {
-	style: {
-		height: "2rem",
-		flex: 1,
-		padding: "4px 8px 2px 8px",
-		width: "4rem",
-		fontSize: "14px",
-	},
-};
 
 interface CardStyle {
 	updateCardControls: (propKey: string, option: string, value: any) => void;

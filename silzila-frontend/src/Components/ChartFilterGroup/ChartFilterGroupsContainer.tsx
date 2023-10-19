@@ -107,7 +107,7 @@ const ChartFilterGroupsContainer = ({
 				let groupDataSetId = chartGroup.groups[event.target.name].dataSetId;
 
 				[...tileState.tileList[tabTileProps.selectedTabId]].forEach((item: any) => {
-					if (chartProp.properties[item].selectedDs.id == groupDataSetId) {
+					if (chartProp.properties[item].selectedDs.id === groupDataSetId) {
 						tabTilesList.push(item);
 					}
 				});
@@ -124,7 +124,7 @@ const ChartFilterGroupsContainer = ({
 			} else {
 				deleteChartFilterSelectedGroup(
 					propKey,
-					selectedFilterGroups.findIndex((name: string) => name == event.target.name)
+					selectedFilterGroups.findIndex((name: string) => name === event.target.name)
 				);
 			}
 		}
@@ -136,7 +136,7 @@ const ChartFilterGroupsContainer = ({
 		let newName = "Filter Group " + numOfGroups;
 
 		Object.keys(chartGroup.groups).forEach(grp => {
-			if (chartGroup.groups[grp].name == newName) {
+			if (chartGroup.groups[grp].name === newName) {
 				isUnique = false;
 				return;
 			}
@@ -165,6 +165,7 @@ const ChartFilterGroupsContainer = ({
 				setFilterGroupNamelist(temp);
 			}
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chartGroup?.tabTile[propKey]]);
 
 	// name list of selected filter grops in dashboard
@@ -185,6 +186,7 @@ const ChartFilterGroupsContainer = ({
 		} else {
 			setDashboardFilterGroupNamelist(["No group selected"]);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dashBoardGroup.groups]);
 
 	const MenuProps = {

@@ -37,13 +37,12 @@ const DynamicMeasureConditionalFormattingComponent = ({
 	changeConditionalFormat,
 }: Props) => {
 	var uid = new ShortUniqueId({ length: 8 });
-	var propKey = `${tabTileProps.selectedTabId}.${tabTileProps.selectedTileId}`;
 
 	var measureKey = `${dynamicMeasureProps.selectedTileId}.${dynamicMeasureProps.selectedDynamicMeasureId}`;
 
-	const [dmValue, setDmValue] = useState<number>(
-		dynamicMeasureProps.dynamicMeasureProps[`${tabTileProps.selectedTabId}`][
-			`${tabTileProps.selectedTileId}`
+	const [dmValue] = useState<number>(
+		dynamicMeasureProps.dynamicMeasureProps[`${dynamicMeasureProps.selectedTabId}`][
+			`${dynamicMeasureProps.selectedTileId}`
 		][measureKey].dmValue
 	);
 	const [cfList, setCfList] = useState<any>(
@@ -51,6 +50,18 @@ const DynamicMeasureConditionalFormattingComponent = ({
 			`${tabTileProps.selectedTileId}`
 		][measureKey].conditionalFormats
 	);
+
+	// useEffect(() => {
+	// 	setCfList(
+	// 		dynamicMeasureProps.dynamicMeasureProps[`${tabTileProps.selectedTabId}`][
+	// 			`${tabTileProps.selectedTileId}`
+	// 		][measureKey].conditionalFormats
+	// 	);
+	// }, [
+	// 	dynamicMeasureProps.dynamicMeasureProps[`${tabTileProps.selectedTabId}`][
+	// 		`${tabTileProps.selectedTileId}`
+	// 	][measureKey].conditionalFormats,
+	// ]);
 
 	const [updateState, setUpdateState] = useState<Boolean>(false);
 
@@ -65,7 +76,7 @@ const DynamicMeasureConditionalFormattingComponent = ({
 			maxValue: null,
 			backgroundColor: "white",
 			fontColor: "black",
-			isFontBold: false,
+			isBold: false,
 			isItalic: false,
 			isUnderlined: false,
 			isCollapsed: true,
@@ -76,8 +87,10 @@ const DynamicMeasureConditionalFormattingComponent = ({
 	useEffect(() => {
 		if (updateState) {
 			changeConditionalFormat(cfList);
+			console.log("function call");
 			setUpdateState(false);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [updateState]);
 
 	const onDelete = (id: string) => {
@@ -91,8 +104,11 @@ const DynamicMeasureConditionalFormattingComponent = ({
 	const onChageProps = (id: string, option: string, value: any) => {
 		const updatedCfList = cfList.map((el: any) => {
 			if (el.id === id) {
-				el[option] = value;
+				const newEl = { ...el }; // Create a new object with the same property values as el
+				newEl[option] = value;
+				return newEl;
 			}
+			console.log(el);
 			return el;
 		});
 		setCfList(updatedCfList);
@@ -100,16 +116,16 @@ const DynamicMeasureConditionalFormattingComponent = ({
 	};
 
 	return (
-		<>
+		<div style={{ overflowY: "scroll" }}>
 			{cfList &&
 				cfList.map((item: any, i: number) => {
 					return (
-						<div className="optionsInfo">
+						<div className="cfListStyle">
 							<div
 								style={{
 									display: "flex",
 									flexDirection: "column",
-									borderBottom: "2px solid rgba(224,224,224,1)",
+
 									paddingBottom: "5px",
 								}}
 							>
@@ -208,11 +224,15 @@ const DynamicMeasureConditionalFormattingComponent = ({
 														const updatedCfList = cfList.map(
 															(el: any) => {
 																if (el.id === item.id) {
-																	el.minValue = e.target.value;
+																	const newEl = { ...el };
+																	newEl.target = e.target.value;
+																	return newEl;
 																}
+																console.log(el);
 																return el;
 															}
 														);
+
 														setCfList(
 															checkIsConditionSatisfied(
 																updatedCfList,
@@ -238,11 +258,15 @@ const DynamicMeasureConditionalFormattingComponent = ({
 														const updatedCfList = cfList.map(
 															(el: any) => {
 																if (el.id === item.id) {
-																	el.maxValue = e.target.value;
+																	const newEl = { ...el };
+																	newEl.target = e.target.value;
+																	return newEl;
 																}
+																console.log(el);
 																return el;
 															}
 														);
+
 														setCfList(
 															checkIsConditionSatisfied(
 																updatedCfList,
@@ -268,14 +292,23 @@ const DynamicMeasureConditionalFormattingComponent = ({
 													type="number"
 													onChange={e => {
 														e.preventDefault();
-														const temp = cfList.map((el: any) => {
-															if (el.id === item.id) {
-																el.target = e.target.value;
+														const updatedCfList = cfList.map(
+															(el: any) => {
+																if (el.id === item.id) {
+																	const newEl = { ...el };
+																	newEl.target = e.target.value;
+																	return newEl;
+																}
+																console.log(el);
+																return el;
 															}
-															return el;
-														});
+														);
+
 														setCfList(
-															checkIsConditionSatisfied(temp, dmValue)
+															checkIsConditionSatisfied(
+																updatedCfList,
+																dmValue
+															)
 														);
 													}}
 													onMouseLeave={(e: any) => {
@@ -347,7 +380,7 @@ const DynamicMeasureConditionalFormattingComponent = ({
 					*the last satisfied condition's style will be applied*
 				</p>
 			</div>
-		</>
+		</div>
 	);
 };
 

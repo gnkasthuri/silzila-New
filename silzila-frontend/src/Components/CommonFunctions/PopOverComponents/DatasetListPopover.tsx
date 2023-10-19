@@ -5,10 +5,9 @@
 
 import { Popover } from "@mui/material";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import React from "react";
 import { connect } from "react-redux";
 import "./Popover.css";
-import { ConnectionItem, DataSetStateProps } from "../../../redux/DataSet/DatasetStateInterfaces";
+import { DataSetStateProps } from "../../../redux/DataSet/DatasetStateInterfaces";
 
 interface Props {
 	popOverTitle: string;

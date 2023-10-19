@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import InputSymbol from "../CommonFunctions/InputSymbol";
@@ -72,6 +73,7 @@ const LabelFormatting = ({
 		}
 
 		setMeasuresList(measures);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chartProperties]);
 
 	const handleUpdateFormat = (option: string, value: any, optionKey?: string) => {

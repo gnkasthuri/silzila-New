@@ -13,6 +13,7 @@ import CrossTabChart from "../Charts/CrossTab/CrossTabChart";
 import HorizontalBar from "../Charts/HorizontalBar";
 import Horizontalstacked from "../Charts/Horizontalstacked";
 import RoseChart from "../Charts/RoseChart";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import GeoChart from "../Charts/GeoChart";
 import TextEditor from "../Charts/TextEditor";
 import CalendarChart from "../Charts/CalendarChart";
@@ -22,7 +23,7 @@ import Sankey from "../Charts/Sankey";
 import StackedAreaChart from "../Charts/StackedAreaChart";
 import PieChart from "../Charts/PieChart";
 import SimpleCard from "../Charts/SimpleCard";
-import TableChart from '../Charts/TableChart/TableChart';
+import TableChart from "../Charts/TableChart/TableChart";
 
 const DashGraph = ({
 	// props
@@ -222,11 +223,13 @@ const DashGraph = ({
 					/>
 				);
 			case "table":
-				return(<TableChart
-					propKey={propKey}
-					graphDimension={dimensions}
-					chartArea="dashboard"
-				></TableChart>);
+				return (
+					<TableChart
+						propKey={propKey}
+						graphDimension={dimensions}
+						chartArea="dashboard"
+					></TableChart>
+				);
 		}
 	};
 	return <React.Fragment>{renderGraph()}</React.Fragment>;

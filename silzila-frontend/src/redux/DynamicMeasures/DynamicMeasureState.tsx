@@ -635,18 +635,7 @@ const DynamicMeasureReducer = (state: any = initialProperties, action: any) => {
 			});
 
 		case "CHANGE_CONDITIONAL_FORMAT":
-			// const temp = state.dynamicMeasureProps[
-			// 	`${state.selectedTabId}.${state.selectedTileId}`
-			// ][`${state.selectedTileId}.${state.selectedDynamicMeasureId}`].conditionalFormats.map(
-			// 	(el: any) => {
-			// 		if (el.id === action.payload.id) {
-			// 			el[action.payload.option] = action.payload.value;
-			// 		}
-			// 		return el;
-			// 	}
-			// );
-
-			// console.log(temp);
+			console.log(state.dynamicMeasureProps[`${state.selectedTabId}`]);
 			return update(state, {
 				dynamicMeasureProps: {
 					[state.selectedTabId]: {

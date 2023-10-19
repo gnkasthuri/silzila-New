@@ -27,3 +27,15 @@
 
 
 }
+
+.cfListStyle {
+
+    width: 100%;
+    padding: 10px 0px 8px;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    transition: linear 0.3s ease-in 0s;
+    border-bottom: 1px solid rgb(224, 224, 224);
+
+}
